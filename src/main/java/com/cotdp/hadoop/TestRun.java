@@ -9,11 +9,7 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: girish.kathalagiri
- * Date: 1/23/13
- * Time: 7:36 AM
- * To change this template use File | Settings | File Templates.
+ * TestRun given a Zip File (arg 0 ) unzips into location in arg 1.
  */
 public class TestRun {
 
@@ -56,7 +52,7 @@ public class TestRun {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
     }
     try {
-      TextOutputFormat.setOutputPath(job, new Path("/out", "Output_Single"));
+      TextOutputFormat.setOutputPath(job, new Path(args[1]));
     } catch (IOException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
     }
