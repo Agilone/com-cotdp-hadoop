@@ -51,6 +51,8 @@ public class MZipFileRecordReader implements RecordReader<Text, BytesWritable> {
 	      return false;
 	    }
 		
+		key.set(new Text(entry.getName()));
+		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	    byte[] temp = new byte[10485760];
 
@@ -75,7 +77,7 @@ public class MZipFileRecordReader implements RecordReader<Text, BytesWritable> {
 	        entry = zip.getNextEntry();
 	    
 	    
-	    key.set(new Text(entry.getName()));
+	    
 	    value.setSize(bos.size());
 	    value.set(bos.toByteArray(), 0, bos.size());
 		
