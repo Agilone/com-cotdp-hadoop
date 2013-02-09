@@ -9,7 +9,6 @@ import java.util.zip.ZipInputStream;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileSplit;
 import org.apache.hadoop.mapred.InputSplit;
@@ -18,7 +17,7 @@ import org.apache.hadoop.mapred.RecordReader;
 import org.apache.hadoop.mapred.Reporter;
 
 
-public class MZipFileRecordReader implements RecordReader<Text, BytesWritable> {
+public class MZipFileRecordReader implements RecordReader<Text, Text> {
 	
 	private FSDataInputStream fsin;
 	private ZipInputStream zip;
@@ -43,7 +42,7 @@ public class MZipFileRecordReader implements RecordReader<Text, BytesWritable> {
 	}
 
 	@Override
-	public boolean next(Text key, BytesWritable value) throws IOException {
+	public boolean next(Text key, Text value) throws IOException {
 		
 		if ( entry == null )
 	    {
@@ -78,8 +77,8 @@ public class MZipFileRecordReader implements RecordReader<Text, BytesWritable> {
 	    
 	    
 	    
-	    value.setSize(bos.size());
-	    value.set(bos.toByteArray(), 0, bos.size());
+	    
+	    value.set(new String(bos.toByteArray()));
 		
 	    return true;
 	}
@@ -90,8 +89,8 @@ public class MZipFileRecordReader implements RecordReader<Text, BytesWritable> {
 	}
 
 	@Override
-	public BytesWritable createValue() {
-		return new BytesWritable();
+	public Text createValue() {
+		return new Text();
 	}
 
 	@Override

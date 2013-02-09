@@ -109,7 +109,7 @@ public class MZipFileTest extends TestCase {
 
 
 	public static class MyMapper2 extends MapReduceBase
-	implements Mapper<Text, BytesWritable, Text, IntWritable>
+	implements Mapper<Text, Text, Text, Text>
 	{
 		private final static IntWritable one = new IntWritable( 1 );
 		private Text word = new Text();
@@ -124,8 +124,8 @@ public class MZipFileTest extends TestCase {
 
 		}
 		@Override
-		public void map(Text key, BytesWritable value,
-				OutputCollector<Text, IntWritable> output, Reporter reporter)
+		public void map(Text key, Text value,
+				OutputCollector<Text, Text> output, Reporter reporter)
 						throws IOException {
 
 			// NOTE: the filename is the *full* path within the ZIP file
@@ -146,7 +146,7 @@ public class MZipFileTest extends TestCase {
 			while ( tokenizer.hasMoreTokens() )
 			{
 				word.set( tokenizer.nextToken() );
-				output.collect( word, one );
+				output.collect( null, word );
 			}
 		}
 
